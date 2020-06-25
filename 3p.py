@@ -5,14 +5,18 @@ import matplotlib
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 import matplotlib.pyplot as plt
 
-# Hyperparameters
-n = 10000
-alpha = 0.003
-d = 10
 
-# Choose dynamics
-dg = b, db
-opt = oga
+# Setitngs for exps
+# bilinear
+# ga: 0.003, oga: 0.05
+# strongly concave
+# 0.005
+
+# Hyperparameters
+np.random.seed(3)
+n = 2000
+alpha = 0.005
+d = 10
 
 # Gradients of players for games
 
@@ -57,10 +61,15 @@ def avg(x):
         x_bar[i] = (x[i] + x_bar[i - 1] * i) / (i + 1)
     return x_bar
 
+# Choose dynamics
+dg = dq
+opt = ga
+
 # Initialize parameters
 x = np.zeros((n, d))
 y = np.zeros((n, d))
 z = np.zeros((n, d))
+
 x[0] = np.random.uniform(low=-1, high=1, size=d)
 y[0] = np.random.uniform(low=-1, high=1, size=d)
 z[0] = np.random.uniform(low=-1, high=1, size=d)
@@ -74,16 +83,17 @@ c_x = np.random.uniform()
 c_y = np.random.uniform()
 c_z = np.random.uniform()
 
-fig = plt.figure()
-ax1 = fig.add_subplot(211, projection='3d')
-fig.subplots_adjust(hspace=.5)
-ax2 = fig.add_subplot(212)
-
 for i in range(0, n - 1):
     x_t, y_t, z_t = opt(x, y, z, dg, i)
     x[i + 1] = x_t
     y[i + 1] = y_t
     z[i + 1] = z_t
+
+fig = plt.figure()
+ax1 = fig.add_subplot(211, projection='3d')
+fig.subplots_adjust(hspace=.5)
+ax2 = fig.add_subplot(212)
+
 x_bar, y_bar, z_bar = avg(x), avg(y), avg(z)
 x_plot, y_plot, z_plot = np.sum(x[1:] ** 2, axis=1), np.sum(y[1:] ** 2, axis=1), np.sum(z[1:] ** 2, axis=1)
 ax1.plot(xs=x_plot, ys=y_plot, zs=z_plot, label='last')
@@ -101,5 +111,6 @@ ax2.legend(loc='upper right')
 ax2.title.set_text('Distance to Equillibrium')
 ax2.set_xlabel('iterates')
 ax2.set_ylabel('sum L2')
+ax2.set_yscale('log')
 
 plt.show()
