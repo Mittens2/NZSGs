@@ -13,7 +13,7 @@ To run the 3 player experiment, simply run
 
         python 3p.py
 
-The hyperparameters are lines 9-11. The dynamics are lines 14-15. Both of these can be manually changed.
+The hyperparameters are lines 16-19. The dynamics are lines 65-66. Both of these can be manually changed.
 
 ### Players Experiment
 
