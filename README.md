@@ -1,6 +1,5 @@
-# Experiments for Convergence in Network Zero Sum Games
-
-This is the code for running the experiments of "Exponential Convergence of Gradient Methods in Network Zero Sum Games". This project contains two files - 3p.py, and players.py.
+# Experiments for Exponential Convergence of Gradient Methods in Concave Network Zero Sum Games
+This is the code for running the experiments of "Exponential Convergence of Gradient Methods in Concave Network Zero Sum Games". This project contains two files - 3p.py, and players.py.
 
 ## Dependencies
 * numpy
